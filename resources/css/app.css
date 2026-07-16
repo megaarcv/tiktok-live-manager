@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --color-brand-pink: #ec4899;
+    --color-brand-cyan: #22d3ee;
+}
+
+@layer components {
+
+    /* ── Sidebar Link ─────────────────────────────── */
+    .sidebar-link {
+        @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+               text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-150;
+    }
+    .sidebar-link.active {
+        @apply text-white bg-gradient-to-r from-pink-500/20 to-cyan-400/10
+               border border-pink-500/20;
+    }
+    .sidebar-link.active svg {
+        @apply text-pink-400;
+    }
+
+    /* ── Cards ────────────────────────────────────── */
+    .card {
+        @apply bg-gray-900 border border-gray-800 rounded-2xl p-5;
+    }
+    .stat-card {
+        @apply bg-gray-900 border border-gray-800 rounded-2xl p-4;
+    }
+
+    /* ── Buttons ──────────────────────────────────── */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
+               bg-gradient-to-r from-pink-500 to-pink-600 text-white
+               hover:from-pink-400 hover:to-pink-500
+               shadow-lg shadow-pink-500/20
+               transition-all duration-150;
+    }
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
+               bg-gray-800 text-gray-300 border border-gray-700
+               hover:bg-gray-700 hover:text-white hover:border-gray-600
+               transition-all duration-150;
+    }
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
+               bg-red-500/10 text-red-400 border border-red-500/20
+               hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/40
+               transition-all duration-150;
+    }
+
+    /* ── Form Elements ────────────────────────────── */
+    .form-label {
+        @apply block text-sm font-medium text-gray-300 mb-1.5;
+    }
+    .form-input {
+        @apply w-full bg-gray-800 border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white
+               placeholder-gray-500
+               focus:outline-none focus:ring-2 focus:ring-pink-500/30 focus:border-pink-500/60
+               transition-all duration-150;
+    }
+    .form-error {
+        @apply text-xs text-red-400 mt-1;
+    }
+
+    /* ── Auth Forms ───────────────────────────────── */
+    .auth-input {
+        @apply w-full bg-gray-800/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white
+               placeholder-gray-500
+               focus:outline-none focus:ring-2 focus:ring-pink-500/40 focus:border-pink-500/60
+               transition-all duration-150;
+    }
+
+    /* ── Badges ───────────────────────────────────── */
+    .badge-green {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+               bg-green-500/10 text-green-400 border border-green-500/20;
+    }
+    .badge-red {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+               bg-red-500/10 text-red-400 border border-red-500/20;
+    }
+    .badge-blue {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+               bg-blue-500/10 text-blue-400 border border-blue-500/20;
+    }
+    .badge-gray {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+               bg-gray-500/10 text-gray-400 border border-gray-500/20;
+    }
+    .badge-yellow {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+               bg-yellow-500/10 text-yellow-400 border border-yellow-500/20;
+    }
+
+    /* ── Quick Action Button ──────────────────────── */
+    .quick-action-btn {
+        @apply flex flex-col items-center gap-2 p-4 rounded-2xl
+               bg-gray-900 border border-gray-800
+               hover:border-gray-700 hover:bg-gray-800
+               text-sm font-medium text-gray-300 hover:text-white
+               transition-all duration-150;
+    }
+
+    /* ── Pagination ───────────────────────────────── */
+    .pagination {
+        @apply flex items-center gap-1;
+    }
+    nav[role="navigation"] {
+        @apply flex items-center justify-between flex-wrap gap-3;
+    }
+    nav[role="navigation"] span > span,
+    nav[role="navigation"] a {
+        @apply inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-lg text-sm
+               transition-colors duration-150;
+    }
+    nav[role="navigation"] span[aria-current="page"] > span {
+        @apply bg-pink-500 text-white font-semibold;
+    }
+    nav[role="navigation"] a {
+        @apply text-gray-400 hover:text-white hover:bg-gray-800;
+    }
+    nav[role="navigation"] span > span:not([aria-current]) {
+        @apply text-gray-600;
+    }
+    nav[role="navigation"] p {
+        @apply text-sm text-gray-500;
+    }
+}
