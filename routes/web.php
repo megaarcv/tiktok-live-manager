@@ -7,6 +7,7 @@ use App\Http\Controllers\TiktokAccountController;
 use App\Http\Controllers\LiveSessionController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\SocialAuthController;
 
 // Redirect root
 Route::get('/', fn() => redirect()->route('dashboard'));
@@ -17,6 +18,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/login',   [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register',[AuthController::class, 'register']);
+
+    // Google OAuth
+    Route::get('/auth/google',          [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
 
 // Authenticated routes
