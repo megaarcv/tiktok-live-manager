@@ -266,9 +266,3 @@ npm run build
 php artisan migrate --force
 php artisan optimize
 ```
-
----
-
-## Lisensi
-
-MIT License
