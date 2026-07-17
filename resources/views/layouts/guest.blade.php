@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="/build/{{ $cssFile }}">
     <script src="/build/{{ $jsFile }}" defer></script>
 </head>
-<body class="h-full bg-gray-950 font-sans">
-    <div class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-full bg-gray-950 font-sans">
+    <div class="min-h-screen flex items-start justify-center p-4 py-10">
         <div class="w-full max-w-md">
             {{-- Logo --}}
             <div class="flex flex-col items-center mb-8">

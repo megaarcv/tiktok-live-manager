@@ -28,18 +28,37 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Email Verification
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect()->route('dashboard')->with('success', 'Email berhasil diverifikasi!');
+    })->middleware('signed')->name('verification.verify');
+
+    Route::post('/email/verification-notification', function (\Illuminate\Http\Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('resent', true);
+    })->middleware('throttle:6,1')->name('verification.send');
+
+    // Dashboard (butuh verified)
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('verified')
+        ->name('dashboard');
 
     // TikTok Accounts
-    Route::resource('accounts', TiktokAccountController::class);
+    Route::resource('accounts', TiktokAccountController::class)->middleware('verified');
 
     // Live Sessions
-    Route::resource('sessions', LiveSessionController::class);
+    Route::resource('sessions', LiveSessionController::class)->middleware('verified');
 
     // Schedules
-    Route::resource('schedules', ScheduleController::class);
+    Route::resource('schedules', ScheduleController::class)->middleware('verified');
 
     // Statistics
-    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+    Route::get('/statistics', [StatisticsController::class, 'index'])
+        ->middleware('verified')
+        ->name('statistics.index');
 });

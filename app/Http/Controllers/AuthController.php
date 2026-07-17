@@ -44,11 +44,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(8)
-    ->letters()
-    ->mixedCase()
-    ->numbers()
-    ->symbols()],
+            'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
         $user = User::create([
@@ -59,7 +55,10 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        // Kirim email verifikasi
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->route('verification.notice');
     }
 
     public function logout(Request $request): RedirectResponse
